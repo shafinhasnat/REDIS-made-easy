@@ -41,5 +41,13 @@ dbfilename        dump.rdb
 dir               ./
 rdbcompression    yes
 </code></pre>
-<p>Here <code>daemonize yes</code> command allows Redis to run on that port continuously. <code>save 60 1</code> means dump data from ram to hdd or ssd every 60 second for 1 change. <code>tcp-keepalive 300</code> means server connection time out period with the client. <code>dbfilename dump.rdb</code></p>
+<p>Here <code>daemonize yes</code> command allows Redis to run on that port continuously. <code>save 60 1</code> means dump data from ram to hdd or ssd every 60 second for 1 change. <code>tcp-keepalive 300</code> means server connection time out period with the client. <code>dbfilename dump.rdb</code> and <code>dir ./</code> means the snapshot of data in the root folder naming <code>dump.rdb</code>.<br>
+To run the database in port 6000, I used the command in the following:</p>
+<pre class=" language-bash"><code class="prism  language-bash">redis-server /etc/redis/6000.conf
+</code></pre>
+<p>Access the cli:</p>
+<pre class=" language-bash"><code class="prism  language-bash">redis-cli -p 6000
+</code></pre>
+<p>After pushing few data I faced this problem:<br>
+<img src="https://i.ibb.co/d2JYy38/002-rdb-error.png" alt=""></p>
 
