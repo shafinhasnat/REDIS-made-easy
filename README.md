@@ -59,5 +59,7 @@ This problem occurs because of redis is not able to write data for the lack of p
 dir               /var/lib/redis
 </code></pre>
 <p>and ran the <code>redis-server /etc/redis/6000.conf</code> command. It gave me another error regarding permission.<br>
-<img src="https://i.ibb.co/Y8jGBHH/004-permission-error.png" alt=""></p>
+<img src="https://i.ibb.co/Y8jGBHH/004-permission-error.png" alt=""><br>
+To grant permission navigate to <code>/etc/systemd/system/</code> and comment out (disable) line 21<br>
+<code># ProtectHome=yes</code></p>
 
