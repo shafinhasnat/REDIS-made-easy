@@ -31,16 +31,16 @@ In  my case I am using version <code>5.0.7</code></p>
 So far so good!</p>
 <p>Redis can be configured for different port also. If we want to make a custom port for redis database, we need to make a <code>.conf</code> file in <code>/etc/redis</code> folder, and initialize it.<br>
 Lets say we will launch redis in port 6000. Just navigate to <code>/etc/redis</code> and make a file naming <code>6000.conf</code> and paste the snippet inside.</p>
-<pre><code># /etc/redis/6000.conf
+<pre class=" language-bash"><code class="prism  language-bash"><span class="token comment"># /etc/redis/6000.conf</span>
 
 port              6000
-daemonize         yes
+daemonize         <span class="token function">yes</span>
 save              60 1
 bind              127.0.0.1
 tcp-keepalive     300
 dbfilename        dump.rdb
-dir               ./
-rdbcompression    yes
+<span class="token function">dir</span>               ./
+rdbcompression    <span class="token function">yes</span>
 </code></pre>
 <p>Here <code>daemonize yes</code> command allows Redis to run on that port continuously. <code>save 60 1</code> means dump data from ram to hdd or ssd every 60 second for 1 change. <code>tcp-keepalive 300</code> means server connection time out period with the client. <code>dbfilename dump.rdb</code> and <code>dir ./</code> means the snapshot of data in the root folder naming <code>dump.rdb</code>.<br>
 To run the database in port 6000, I used the command in the following:</p>
