@@ -49,5 +49,8 @@ To run the database in port 6000, I used the command in the following:</p>
 <pre class=" language-bash"><code class="prism  language-bash">redis-cli -p 6000
 </code></pre>
 <p>After pushing few data I faced this problem:<br>
-<img src="https://i.ibb.co/d2JYy38/002-rdb-error.png" alt=""></p>
+<img src="https://i.ibb.co/d2JYy38/002-rdb-error.png" alt=""><br>
+The error message says:</p>
+<pre><code>(error) MISCONF Redis is configured to save RDB snapshots, but it is currently not able to persist on disk. Commands that may modify the data set are disabled, because this instance is configured to report errors during writes if RDB snapshotting fails (stop-writes-on-bgsave-error option). Please check the Redis logs for details about the RDB error.
+</code></pre>
 
