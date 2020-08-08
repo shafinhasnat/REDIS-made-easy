@@ -53,4 +53,11 @@ To run the database in port 6000, I used the command in the following:</p>
 The error message says:</p>
 <pre><code>(error) MISCONF Redis is configured to save RDB snapshots, but it is currently not able to persist on disk. Commands that may modify the data set are disabled, because this instance is configured to report errors during writes if RDB snapshotting fails (stop-writes-on-bgsave-error option). Please check the Redis logs for details about the RDB error.
 </code></pre>
+<p><em><strong>Debug:</strong></em><br>
+This problem occurs because of redis is not able to write data for the lack of permission. By default the <code>.rdb</code> file is saved into <code>/var/lib/redis</code> folder. I decided to save the dump file in this folder with a new name <code>dump_6000.rdb</code>. So, I changed the value of <code>dir</code> and <code>dbfilename</code> to following:</p>
+<pre><code>dbfilename        dump_6000.rdb
+dir               /var/lib/redis
+</code></pre>
+<p>and ran the <code>redis-server /etc/redis/6000.conf</code> command. It gave me another error regarding permission.<br>
+<img src="https://i.ibb.co/Y8jGBHH/004-permission-error.png" alt=""></p>
 
