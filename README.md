@@ -11,7 +11,7 @@
 </code></pre>
 <pre class=" language-bash"><code class="prism  language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> upgrade
 </code></pre>
-<pre class=" language-bash"><code class="prism  language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> redis
+<pre class=" language-bash"><code class="prism  language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> redis-server
 </code></pre>
 <p>or it can be installed manually by downloading the <code>.tar.gz</code> file from <a href="http://download.redis.io/releases/">here</a> and <code>make</code> command.<br>
 After installation check the version with <code>--version</code> command:</p>
@@ -20,4 +20,8 @@ After installation check the version with <code>--version</code> command:</p>
 <p>It will return something like this:<br>
 <img src="https://i.ibb.co/R04kqWH/001-ver.png" alt=""><br>
 In  my case I am using version <code>5.0.7</code></p>
+<h2 id="running-and-configuration">Running and configuration</h2>
+<pre class=" language-bash"><code class="prism  language-bash">redis-server
+</code></pre>
+<p>this commang</p>
 
