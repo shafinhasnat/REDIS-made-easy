@@ -85,4 +85,5 @@ To connect the existing database localhost:6000 to Python redis client-</p>
 <span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> r<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"Russia"</span><span class="token punctuation">)</span>
 <span class="token string">'ruble'</span>
 </code></pre>
+<h1 id="redis-cluster">Redis cluster</h1>
 
