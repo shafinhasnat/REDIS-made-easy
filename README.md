@@ -21,7 +21,8 @@ After installation check the version with <code>--version</code> command:</p>
 <img src="https://i.ibb.co/R04kqWH/001-ver.png" alt=""><br>
 In  my case I am using version <code>5.0.7</code></p>
 <h2 id="running-and-configuration">Running and configuration</h2>
-<pre class=" language-bash"><code class="prism  language-bash">redis-server
+<p>Redis server runs on default port <code>6379</code>. It can be accessed with</p>
+<pre class=" language-bash"><code class="prism  language-bash">redis-cli
 </code></pre>
-<p>this commang</p>
+<p>This command will bind directly with port 6379 on localhost. This will look like:</p>
 
