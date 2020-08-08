@@ -24,7 +24,10 @@ In  my case I am using version <code>5.0.7</code></p>
 <p>Redis server runs on default port <code>6379</code>. It can be accessed with</p>
 <pre class=" language-bash"><code class="prism  language-bash">redis-cli
 </code></pre>
-<p>This command will bind directly with port 6379 of localhost. Redis can be configured for different port also. If we want to make a custom port for redis database, we need to make a <code>.conf</code> file in <code>/etc/redis</code> folder, and initialize it.<br>
+<p>This command will bind directly with port 6379 of localhost. Lets apply some Redis cli command here.<br>
+<img src="https://i.ibb.co/gRs1Dmq/003-def-port-play.png" alt=""><br>
+So far so good!</p>
+<p>Redis can be configured for different port also. If we want to make a custom port for redis database, we need to make a <code>.conf</code> file in <code>/etc/redis</code> folder, and initialize it.<br>
 Lets say we will launch redis in port 6000. Just navigate to <code>/etc/redis</code> and make a file naming <code>6000.conf</code> and paste the snippet inside.</p>
 <pre><code># /etc/redis/6000.conf
 
@@ -37,5 +40,5 @@ dbfilename        dump.rdb
 dir               ./
 rdbcompression    yes
 </code></pre>
-<p>Here <code>daemonize yes</code> command allows Redis to run on that port continuously. <code>save 60 1</code> means dump data from ram to hdd or ssd every 60 second for 1 change</p>
+<p>Here <code>daemonize yes</code> command allows Redis to run on that port continuously. <code>save 60 1</code> means dump data from ram to hdd or ssd every 60 second for 1 change. <code>tcp-keepalive 300</code> means server connection time out period with the client. <code>dbfilename dump.rdb</code></p>
 
