@@ -58,8 +58,12 @@ This problem occurs because of redis is not able to write data for the lack of p
 <pre><code>dbfilename        dump_6000.rdb
 dir               /var/lib/redis
 </code></pre>
-<p>and ran the <code>redis-server /etc/redis/6000.conf</code> command. It gave me another error regarding permission.<br>
+<p>Force stop the database in the port with <code>redis-cli -p 6000 shutdown NOSAVE</code> and run <code>redis-server /etc/redis/6000.conf</code> command. It gave me another error regarding permission.<br>
 <img src="https://i.ibb.co/Y8jGBHH/004-permission-error.png" alt=""><br>
 To grant permission navigate to <code>/etc/systemd/system/</code> and comment out (disable) line 21<br>
-<code># ProtectHome=yes</code></p>
+<code># ProtectHome=yes</code><br>
+Then restart all daemon with <code>sudo systemctl daemon-reload</code> and restart the redis-server with <code>sudo service redis-server restart</code> command.<br>
+Then like before run redis-server on port 6000 with <code>redis-server /etc/redis/6000.conf</code> command. Now it works properly!<br>
+Now access the cli on port 6000 with <code>redis-cli -p 6000</code>.<br>
+<img src="https://i.ibb.co/q5MXcT4/005-debug-6000.png" alt=""></p>
 
