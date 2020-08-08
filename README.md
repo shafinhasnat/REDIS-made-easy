@@ -13,6 +13,10 @@
 </code></pre>
 <pre class=" language-bash"><code class="prism  language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> redis
 </code></pre>
-<p>or it can be installed manually by downloading the <code>.tar.gz</code> file from <a href="http://download.redis.io/releases/">http://download.redis.io/releases/</a> and <code>make</code> command.<br>
-After installation check the version a</p>
+<p>or it can be installed manually by downloading the <code>.tar.gz</code> file from <a href="http://download.redis.io/releases/">here</a> and <code>make</code> command.<br>
+After installation check the version with <code>--version</code> command:</p>
+<pre class=" language-bash"><code class="prism  language-bash">redis-server ---version
+</code></pre>
+<p>It will return something like this:<br>
+<img src="https://i.ibb.co/R04kqWH/001-ver.png" alt=""></p>
 
