@@ -68,4 +68,21 @@ Then like before run redis-server on port 6000 with <code>redis-server /etc/redi
 Now access the cli on port 6000 with <code>redis-cli -p 6000</code>.<br>
 <img src="https://i.ibb.co/q5MXcT4/005-debug-6000.png" alt=""><br>
 <sup>Oops! misspelled my own country Bandladesh–&gt;Bangladesh :’(</sup></p>
+<h2 id="plugging-redis-with-python">Plugging Redis with Python</h2>
+<p>Redis has an official Python client. It can be downloaded easily with PyPI package archive<br>
+<code>pip3 install redis</code><br>
+To connect the existing database localhost:6000 to Python redis client-</p>
+<pre class=" language-python"><code class="prism  language-python"><span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> <span class="token keyword">import</span> redis
+<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> r <span class="token operator">=</span> redis<span class="token punctuation">.</span>Redis<span class="token punctuation">(</span>host<span class="token operator">=</span><span class="token string">'127.0.0.1'</span><span class="token punctuation">,</span> port<span class="token operator">=</span><span class="token number">6000</span><span class="token punctuation">,</span> db<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span> decode_responses<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+</code></pre>
+<p>We can run Redis cli command in this python script</p>
+<pre class=" language-python"><code class="prism  language-python"><span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> r<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"India"</span><span class="token punctuation">)</span>
+<span class="token string">'rupee'</span>
+<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> r<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"US"</span><span class="token punctuation">)</span>
+<span class="token string">'dollar'</span>
+<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> r<span class="token punctuation">.</span><span class="token builtin">set</span><span class="token punctuation">(</span><span class="token string">"Russia"</span><span class="token punctuation">,</span> <span class="token string">"ruble"</span><span class="token punctuation">)</span>
+<span class="token boolean">True</span>
+<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> r<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"Russia"</span><span class="token punctuation">)</span>
+<span class="token string">'ruble'</span>
+</code></pre>
 
