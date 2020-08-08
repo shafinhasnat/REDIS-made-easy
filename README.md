@@ -65,5 +65,6 @@ To grant permission navigate to <code>/etc/systemd/system/</code> and comment ou
 Then restart all daemon with <code>sudo systemctl daemon-reload</code> and restart the redis-server with <code>sudo service redis-server restart</code> command.<br>
 Then like before run redis-server on port 6000 with <code>redis-server /etc/redis/6000.conf</code> command. Now it works properly!<br>
 Now access the cli on port 6000 with <code>redis-cli -p 6000</code>.<br>
-<img src="https://i.ibb.co/q5MXcT4/005-debug-6000.png" alt=""></p>
+<img src="https://i.ibb.co/q5MXcT4/005-debug-6000.png" alt=""><br>
+<sup>Oops! misspelled my own country Bandladesh–&gt;Bangladesh :’(</sup></p>
 
