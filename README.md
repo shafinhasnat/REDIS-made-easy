@@ -1,8 +1,3 @@
----
-
-
----
-
 <h1 id="redis-made-easy">REDIS made easy</h1>
 <h3>-Shafin Hasnat</h3> 
 <p><img src="https://i.ibb.co/T2n60wq/redis-logo.png" alt=""><br>
