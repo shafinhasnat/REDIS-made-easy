@@ -4,7 +4,8 @@
 ---
 
 <h1 id="redis-made-easy">REDIS made easy</h1>
-<p><strong>REDIS</strong> is a NoSQL in memory database which is faster than many other SQL and NoSql data stores. It stores data in <strong>key-value</strong> pair just like Python dictionary or Javascript object. It provides persistency of data alongside storing immediately in RAM as well. Redis gives the freedom of storing variety of data structures. It supports most of the modern programming languages which. We will be using <code>Python</code> in this case.</p>
+<p><img src="https://i.ibb.co/T2n60wq/redis-logo.png" alt=""><br>
+<strong>REDIS</strong> is a NoSQL in memory database which is faster than many other SQL and NoSql data stores. It stores data in <strong>key-value</strong> pair just like Python dictionary or Javascript object. It provides persistency of data alongside storing immediately in RAM as well. Redis gives the freedom of storing variety of data structures. It supports most of the modern programming languages which. We will be using <code>Python</code> in this case.</p>
 <h2 id="installation">Installation</h2>
 <p>Redis is available in <code>apt</code>  in Linux distros. Bash command for installing it from apt is:</p>
 <pre class=" language-bash"><code class="prism  language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> update
