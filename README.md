@@ -86,5 +86,7 @@ To connect the existing database localhost:6000 to Python redis client-</p>
 <span class="token string">'ruble'</span>
 </code></pre>
 <h1 id="redis-cluster">Redis cluster</h1>
+<p>Redis cluster allows automatically shard data among multiple standalone nodes. It allows the system to be up and running despite some of the node(s) goes down.  Nodes in the cluster are divided into master and slave. The cluster shards data according to the hash slot. A cluster provides 16384 hash slots. These slots are equally divided among the master nodes. All nodes are connected to each other in mesh via gossip protocol.</p>
+<h1 id="setup-a-redis-cluster">Setup a Redis cluster</h1>
 <p>…</p>
 
