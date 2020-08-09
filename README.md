@@ -138,7 +138,7 @@ To check with redis cli, <code>./redis-5.0.7/src/redis-cli -c -p 7002</code> (he
 <img src="https://i.ibb.co/VSmS1cQ/014-node-2-before-fail-assign-1.png" alt=""><br>
 <sup>Oops! misspelled again… thiland—&gt;thailand :’(</sup><br>
 As we can see, this key value has been redirected to port 7001 in hash slot 6369. Each time we GET this key, it will redirect from port 7001.</p>
-<p><em><strong>Server failure simulation</strong></em><br>
+<h2 id="server-failure-simulationif-we-kill-server-in-port-7002-other-nodes-will-take-this-message-and-its-slave-7005-will-be-assigned-as-master.kill-7002new-state-of-7005cat-any-cluster-node.conf-file-here-we-can-see-master-port-7002-is-in-fail-state-and-7005-is-now-master.if-we-query-the-keys-which-was-assigned-to-port-7002-which-is-now-dead-it-will-still-give-the-result-from-port-7001.cool-right-so-7002-is-dead-already-now-if-we-kill-7001-which-holds-our-key-value-what-happens-7001-was-a-master-node-as-it-is-now-dead-7004-becomes-the-new-master-of-the-cluster.our-data-still-exists-in-port-7004-insaneif-any-hash-slot-is-unused-due-to-failure-of-a-master-slave-block-the-server-will-return-clusterdown-message"><em><strong>Server failure simulation</strong></em><br>
 If we kill server in port 7002, Other nodes will take this message, and its slave 7005 will be assigned as master.<br>
 kill 7002:<br>
 <img src="https://i.ibb.co/V3NDm6p/019-kill-7002.png" alt=""><br>
@@ -151,5 +151,8 @@ If we query the keys which was assigned to port 7002, which is now dead, it will
 <img src="https://i.ibb.co/p2yrxf0/016-node-2-failure-handle.png" alt=""><br>
 Cool right? So, 7002 is dead already, now if we kill 7001, which holds our key value, what happens? 7001 was a master node, as it is now dead, 7004 becomes the new master of the cluster.<br>
 <img src="https://i.ibb.co/82gw9md/021-kill-7001-7002-get-thiland.png" alt=""><br>
-Our data still exists in port 7004!! INSANE!!</p>
+Our data still exists in port 7004!! INSANE!!<br>
+If any hash slot is unused due to failure of a master slave block, the server will return <code>CLUSTERDOWN</code> message:<br>
+<img src="https://i.ibb.co/LvWr5Wc/018-7001-7004-ms-fail.png" alt=""></h2>
+<hr>
 
