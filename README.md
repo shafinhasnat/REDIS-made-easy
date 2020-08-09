@@ -143,5 +143,13 @@ If we kill server in port 7002, Other nodes will take this message, and its slav
 kill 7002:<br>
 <img src="https://i.ibb.co/V3NDm6p/019-kill-7002.png" alt=""><br>
 new state of 7005:<br>
-<img src="https://i.ibb.co/Z67ccqH/020-7005-master.png" alt=""></p>
+<img src="https://i.ibb.co/Z67ccqH/020-7005-master.png" alt=""><br>
+Cat any <code>cluster-node.conf</code> file-<br>
+<img src="https://i.ibb.co/LpzPWwf/013-node-2-fail.png" alt=""><br>
+Here, we can see master port 7002 is in <code>fail</code> state, and 7005 is now master.<br>
+If we query the keys which was assigned to port 7002, which is now dead, it will still give the result from port 7001.<br>
+<img src="https://i.ibb.co/p2yrxf0/016-node-2-failure-handle.png" alt=""><br>
+Cool right? So, 7002 is dead already, now if we kill 7001, which holds our key value, what happens? 7001 was a master node, as it is now dead, 7004 becomes the new master of the cluster.<br>
+<img src="https://i.ibb.co/82gw9md/021-kill-7001-7002-get-thiland.png" alt=""><br>
+Our data still exists in port 7004!! INSANE!!</p>
 
