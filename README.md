@@ -138,14 +138,16 @@ Redis cluster allows automatically shard data among multiple standalone nodes. I
 
 ## Setup a Redis cluster
 
-Here, we will simulatea= redis cluster with total 6 nodes (3 master, 3 slave). Flow chart of the redis cluster:
+Here, we will simulate a redis cluster with total 6 nodes (3 master, 3 slave). Flow chart of the redis cluster:
 
 ![](https://i.ibb.co/4grCJkH/flow.jpg)
 
 This cluster uses port 7000-7005 as nodes. Hash slot distribution:
-Port 7000 ---> 0-5460
-Port 7001 ---> 5461-10922
-Port 7000 ---> 10923-16383
+
+- Port 7000 ---> 0-5460
+- Port 7001 ---> 5461-10922
+- Port 7000 ---> 10923-16383
+
 We will simulate the cluster in a single host. For this, navigate to the working directory, and download and make redis in that folder:
 
 ```
