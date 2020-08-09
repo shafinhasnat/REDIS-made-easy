@@ -31,9 +31,7 @@ In  my case I am using version <code>5.0.7</code></p>
 So far so good!</p>
 <p>Redis can be configured for different port also. If we want to make a custom port for redis database, we need to make a <code>.conf</code> file in <code>/etc/redis</code> folder, and initialize it.<br>
 Lets say we will launch redis in port 6000. Just navigate to <code>/etc/redis</code> and make a file naming <code>6000.conf</code> and paste the snippet inside.</p>
-<pre class=" language-bash"><code class="prism  language-bash"><span class="token comment"># /etc/redis/6000.conf</span>
-
-port              6000
+<pre class=" language-bash"><code class="prism  language-bash">port              6000
 daemonize         <span class="token function">yes</span>
 save              60 1
 bind              127.0.0.1
@@ -87,7 +85,63 @@ To connect the existing database localhost:6000 to Python redis client-</p>
 </code></pre>
 <h1 id="redis-cluster">Redis cluster</h1>
 <p>Redis cluster allows automatically shard data among multiple standalone nodes. It allows the system to be up and running despite some of the node(s) goes down.  Nodes in the cluster are divided into master and slave. The cluster shards data according to the hash slot. A cluster provides 16384 hash slots. These slots are equally divided among the master nodes. All nodes are connected to each other in mesh via gossip protocol.</p>
-<h1 id="setup-a-redis-cluster">Setup a Redis cluster</h1>
-<p>Here, we will create a redis cluster with total 6 nodes (3 master, 3 slave). Flow chart of the redis cluster:<br>
-<img src="https://i.ibb.co/4grCJkH/flow.jpg" alt=""></p>
+<h2 id="setup-a-redis-cluster">Setup a Redis cluster</h2>
+<p>Here, we will simulatea= redis cluster with total 6 nodes (3 master, 3 slave). Flow chart of the redis cluster:</p>
+<p><img src="https://i.ibb.co/4grCJkH/flow.jpg" alt=""></p>
+<p>This cluster uses port 7000-7005 as nodes. Hash slot distribution:<br>
+Port 7000 —&gt; 0-5460<br>
+Port 7001 —&gt; 5461-10922<br>
+Port 7000 —&gt; 10923-16383<br>
+We will simulate the cluster in a single host. For this, navigate to the working directory, and download and make redis in that folder:</p>
+<pre><code>wget http://download.redis.io/releases/redis-5.0.7.tar.gz
+</code></pre>
+<pre><code>tar xzf redis-5.0.7.tar.gz
+</code></pre>
+<pre><code>cd redis-5.0.7
+</code></pre>
+<pre><code>make
+</code></pre>
+<p>To enable clustering, uncomment (enable) these 3 lines in <code>redis.conf</code> file:<br>
+<code>cluster-enabled yes</code><br>
+<code>cluster-config0file nodes-6379.conf</code><br>
+<code>cluster-node-timeout 15000</code></p>
+<p>Then make 6 <code>.conf</code> in the root of the working directory</p>
+<pre><code>touch 7000.conf 7001.conf 7002.conf 7003.conf 7004.conf 7005.conf
+</code></pre>
+<p>And paste the snippet below in each of the <code>.conf</code> file:</p>
+<pre class=" language-bash"><code class="prism  language-bash">port 7000
+cluster-enabled <span class="token function">yes</span>
+cluster-config-file cluster-node-0.conf
+cluster-node-timeout 5000
+appendonly <span class="token function">yes</span>
+appendfilename node-0.aof
+dbfilename dump-0.rdb
+</code></pre>
+<p>This is <code>7000.conf</code> file. Change <code>port</code>, <code>cluster-config-file</code>, <code>appendfilename</code>, <code>dbfilename</code> name accordingly.<br>
+Run redis server in each created port:<br>
+<code>./redis-5.0.7/src/redis-server 7000.conf</code> (change <code>.conf</code> file name for other ports)<br>
+According to the configuration, a <code>.aof</code> and a <code>.conf</code> file is created for each. The working directory looks like this in this stage:<br>
+<img src="https://i.ibb.co/kmKS5YN/006-folder-ls-1.png" alt=""><br>
+The cluster is not up yet. Each of the nodes are still isolated. The <code>cluster-node-0.conf</code> looks like this in this stage:<br>
+<img src="https://i.ibb.co/kMBFxzn/007-cat-conf-1.png" alt=""><br>
+It’s time to create the cluster. Our cluster will have one replica per master.</p>
+<pre><code>./redis-5.0.7/src/redis-cli --cluster create 127.0.0.1:7000 127.0.0.1:7001 127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005 --cluster-replicas 1
+</code></pre>
+<p>Accept what is asked, and out cluster in up and running! We can see the confirmation message in the logs of each running nodes. If we cat any <code>cluster-node.conf</code>,<br>
+<img src="https://i.ibb.co/G70mFmL/012-cat-conf-2.png" alt=""><br>
+As we can see here, connection has been established between each nodes. And port 7000, 7001, 7002 has been assigned as master and other 3 ports 7003, 7004, 7005 as slave.<br>
+In this stage, <code>.rdb</code> files are added in the root working directory.<br>
+<img src="https://i.ibb.co/GRKKtcx/011-folder-ls-2.png" alt=""></p>
+<p><em><strong>Testing</strong></em><br>
+If we <code>SET</code> any value in any port, they get redirected in another port according to the assigned slot.<br>
+To check with redis cli, <code>./redis-5.0.7/src/redis-cli -c -p 7002</code> (here <code>-c</code> is for cluster mode, and we are using port 7002)<br>
+<img src="https://i.ibb.co/VSmS1cQ/014-node-2-before-fail-assign-1.png" alt=""><br>
+<sup>Oops! misspelled again… thiland—&gt;thailand :’(</sup><br>
+As we can see, this key value has been redirected to port 7001 in hash slot 6369. Each time we GET this key, it will redirect from port 7001.</p>
+<p><em><strong>Server failure simulation</strong></em><br>
+If we kill server in port 7002, Other nodes will take this message, and its slave 7005 will be assigned as master.<br>
+kill 7002:<br>
+<img src="https://i.ibb.co/V3NDm6p/019-kill-7002.png" alt=""><br>
+new state of 7005:<br>
+<img src="https://i.ibb.co/Z67ccqH/020-7005-master.png" alt=""></p>
 
