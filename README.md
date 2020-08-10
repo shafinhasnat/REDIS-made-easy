@@ -134,7 +134,7 @@ True
 
 # Redis cluster
 
-Redis cluster allows automatically shard data among multiple standalone nodes. It allows the system to be up and running despite some of the node(s) goes down. Nodes in the cluster are divided into master and slave. The cluster shards data according to the hash slot. A cluster provides 16384 hash slots. These slots are equally divided among the master nodes. All nodes are connected to each other in mesh via gossip protocol.
+Redis cluster allows automatically shard data among multiple standalone nodes. It allows horizontal scaling of server. It allows the system to be up and running despite some of the node(s) goes down. Nodes in the cluster are divided into master and slave. The cluster shards data according to the hash slot. A cluster provides 16384 hash slots. These slots are equally divided among the master nodes. All nodes are connected to each other in mesh via gossip protocol.
 
 ## Setup a Redis cluster
 
@@ -251,9 +251,34 @@ Cool right? So, 7002 is dead already, now if we kill 7001, which holds our key v
 ![](https://i.ibb.co/82gw9md/021-kill-7001-7002-get-thiland.png)
 
 Our data still exists in port 7004!! INSANE!!
+If any dead server comes alive, it will stay as a slave if it has any new master relocated.
+
 If any hash slot is unused due to failure of a master slave block, the server will return `CLUSTERDOWN` message:
 
 ![](https://i.ibb.co/LvWr5Wc/018-7001-7004-ms-fail.png)
+
+## Plugging Redis-cluster with Python
+
+For redis cluster, there is a python client. Get the module with `pip3 install redis-py-cluster` command.
+
+To connect python with our existing redis cluster in port 7000-7005:
+
+```python
+>>> from rediscluster import RedisCluster
+>>> nodes = [{"host":"127.0.0.1", "port":"7000","host":"127.0.0.1", "port":"7001","host":"127.0.0.1", "port":"7002","host":"127.0.0.1", "port":"7003","host":"127.0.0.1", "port":"7004","host":"127.0.0.1", "port":"7005"}]
+>>> r = RedisCluster(startup_nodes = nodes, decode_responses = True)
+```
+
+Then run redis cli command in the cluster:
+
+```python
+>>> r.get("thiland")
+'baht'
+>>> r.set("uae","dirham")
+True
+>>> r.get("uae")
+'dirham'
+```
 
 ---
 
