@@ -132,7 +132,7 @@ True
 'ruble'
 ```
 
-To access another redis server in the network (lets say 192.168.0.101:6379), open `redis.conf` file of the server and change `bind 127.0.0.1` to `bind 0.0.0.0`, and restart the server with `/etc/init.d/redis-server restart`. From another device, run `redis-cli -h 192.168.0.101 -p 6379 -u <password_if_any>` (set up a password from `requirepass <password>` in `redis.conf` file).
+To access another redis server in the network (lets say 192.168.0.101:6379), open `redis.conf` file of the server and change `bind 127.0.0.1` to `bind 0.0.0.0`, and restart the server with `/etc/init.d/redis-server restart`. From another device, run `redis-cli -h 192.168.0.101 -p 6379 -a <password_if_any>` (set up a password from `requirepass <password>` in `redis.conf` file).
 
 # Redis cluster
 
